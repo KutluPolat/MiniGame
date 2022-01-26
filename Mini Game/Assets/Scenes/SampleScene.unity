@@ -444,7 +444,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9921976, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -592,10 +592,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4670ca6b2e9234f91adc44402f6910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  Building1: {fileID: 0}
+  Building2: {fileID: 0}
   CameraAnimator: {fileID: 1923872168}
-  PlayerAnimator: {fileID: 0}
-  PlayerRigidbody: {fileID: 0}
+  _managerHolder: {fileID: 1785256943}
+  _controllerHolder: {fileID: 454997309}
+  _managers:
+  - {fileID: 2232314076898902331, guid: e29ba6c2d29ceb54889d626c9cc51360, type: 3}
+  - {fileID: 4552332999501344886, guid: 2a815c89c2f5d42468bcc8965fc83b9c, type: 3}
+  - {fileID: 6138579601102292696, guid: 0819a10ed373c9f4c8133ed002fcb0fb, type: 3}
+  _gridControllerPrefab: {fileID: 8815285952987647584, guid: 43d628c663566ac429d4089503c28f77, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,7 +758,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9921976, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

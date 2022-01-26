@@ -25,14 +25,12 @@ public class EventManager : MonoBehaviour
     #region Delegates
 
     public delegate void Buttons();
-    public delegate void States();
 
     #endregion // Delegates
 
     #region Events
 
-    public event Buttons OnPressedRestart, OnPressedNextLevel;
-    public event States OnStateTapToPlay, OnStateInGame, OnStateLevelEnd;
+    public event Buttons OnPressedRestart;
 
     #endregion // Events
 
@@ -45,44 +43,6 @@ public class EventManager : MonoBehaviour
             OnPressedRestart();
 
             Debug.Log("OnPressedRestart triggered.");
-        }
-    }
-
-    public void TriggerOnPressedNextLevel()
-    {
-        if (OnPressedNextLevel != null)
-        {
-            OnPressedNextLevel();
-
-            Debug.Log("OnPressedNextLevel triggered.");
-        }
-    }
-
-    public void TriggerOnStateTapToPlay()
-    {
-        if (OnStateTapToPlay != null)
-        {
-            OnStateTapToPlay();
-
-            Debug.Log("OnTapToPlay triggered.");
-        }
-    }
-
-    public void TriggerOnStateInGame()
-    {
-        if (OnStateInGame != null)
-        {
-            OnStateInGame();
-            Debug.Log("OnInGame triggered.");
-        }
-    }
-
-    public void TriggerOnStateLevelEnd()
-    {
-        if (OnStateLevelEnd != null)
-        {
-            OnStateLevelEnd();
-            Debug.Log("OnLevelEnd triggered.");
         }
     }
 

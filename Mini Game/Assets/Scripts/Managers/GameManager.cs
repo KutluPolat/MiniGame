@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     #region Script Holders
 
-    [BoxGroup("Script Holders"), SceneObjectsOnly, ShowInInspector]
+    [BoxGroup("Script Holders"), SceneObjectsOnly, SerializeField]
     private GameObject _managerHolder, _controllerHolder;
 
     #endregion // Script Holders
@@ -55,26 +55,25 @@ public class GameManager : MonoBehaviour
      * 1-) Create the manager script
      * 2-) Create an empty game object and assign the script to it
      * 3-) Prefabricate the created object
-     * 4-) Create a new variable called _...Manager in the Manager Prefabs region
-     * 5-) Instantiate it in InitializeManagers() method.
-     * 6-) Assign that prefab on created variable.
+     * 4-) Drag and drop the list below in the editor.
+     * 
+     * Order in the editor also represents order in the hierarchy
      */
-    [BoxGroup("Managers"), AssetsOnly, ShowInInspector]
-    private GameObject _inputManager, _animationManager, _levelManager, _eventManager, _sfxManager;
+    [BoxGroup("Managers"), AssetsOnly, SerializeField]
+    private List<GameObject> _managers;
 
     #endregion // Manager Prefabs
 
     #region Controller Prefabs
 
-    [BoxGroup("Controllers"), AssetsOnly, ShowInInspector]
-    private GameObject _controllerOnePrefab, _contollerTwoPrefab;
+    [BoxGroup("Controllers"), AssetsOnly, SerializeField]
+    private GameObject _gridControllerPrefab;
 
     #endregion // Controller Prefabs
 
     #region Controller Properties
 
-    public ControllerOne ControllerOne { get; private set; }
-    public ControllerTwo ControllerTwo { get; private set; }
+    public GridController GridController { get; private set; }
 
     #endregion // Controller Properties
 
@@ -93,17 +92,15 @@ public class GameManager : MonoBehaviour
 
     private void InitializeManagers()
     {
-        Instantiate(_eventManager, _managerHolder.transform);
-        Instantiate(_inputManager, _managerHolder.transform);
-        Instantiate(_animationManager, _managerHolder.transform);
-        Instantiate(_levelManager, _managerHolder.transform);
-        Instantiate(_sfxManager, _managerHolder.transform);
+        foreach(GameObject manager in _managers)
+        {
+            Instantiate(manager, _managerHolder.transform);
+        }
     }
 
     private void InitializeControllers()
     {
-        ControllerOne = Instantiate(_controllerOnePrefab, _controllerHolder.transform).GetComponent<ControllerOne>();
-        ControllerTwo = Instantiate(_contollerTwoPrefab, _controllerHolder.transform).GetComponent<ControllerTwo>();
+        GridController = Instantiate(_gridControllerPrefab, _controllerHolder.transform).GetComponent<GridController>();
     }
 
     #endregion // Initializations.

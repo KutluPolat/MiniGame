@@ -1,7 +1,8 @@
 namespace ArvisGames.MiniIdleBuilder.Enums
 {
-    public enum ParticleType
+    public enum GridState
     {
-        BuildingBuilded
+        Empty,
+        Occupied
     }
 }

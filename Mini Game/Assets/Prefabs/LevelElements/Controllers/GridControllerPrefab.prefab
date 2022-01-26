@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4077820954946129884}
   - component: {fileID: 7950731836678167839}
   m_Layer: 0
-  m_Name: ControllerOne
+  m_Name: GridControllerPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,6 +41,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8815285952987647584}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beaeac133e70ccd4cab9c668cd5bfd5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8529ceb3534487c4aa9cd66807ac6d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

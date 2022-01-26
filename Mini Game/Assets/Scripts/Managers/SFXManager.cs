@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using Sirenix.OdinInspector;
-using CompanyName.GameName.Enums;
+using ArvisGames.MiniIdleBuilder.Enums;
 
 public class SFXManager : MonoBehaviour
 {
@@ -36,7 +36,7 @@ public class SFXManager : MonoBehaviour
     private AudioMixer _mixer;
 
     [BoxGroup("Audio Clips"), InlineEditor(InlineEditorModes.SmallPreview), AssetsOnly, ShowInInspector]
-    [InlineButton("TestClip", "Test")]
+    [InlineButton("PlayOneShotAudio", "Test")]
     private AudioClip _buttonClick, _actionOne, _actionTwo, _actionThree;
 
     [BoxGroup("Audio Sources"), SceneObjectsOnly, ShowInInspector]
@@ -48,28 +48,15 @@ public class SFXManager : MonoBehaviour
 
     #region Audio
 
-    public void PlayOneShot(AudioState state)
-    {
-        switch (state)
-        {
-            case AudioState.ButtonClicked:
-                _generalAudioSource.PlayOneShot(_buttonClick);
-                break;
-            case AudioState.ActionOne:
-                _generalAudioSource.PlayOneShot(_actionOne);
-                break;
-            case AudioState.ActionTwo:
-                _generalAudioSource.PlayOneShot(_actionTwo);
-                break;
-            case AudioState.ActionThree:
-                _generalAudioSource.PlayOneShot(_actionThree);
-                break;
-        }
-    }
-
-    private void TestClip(AudioClip audio)
+    public void PlayOneShotAudio(AudioClip audio)
     {
         if (_generalAudioSource != null && _generalAudioSource.isPlaying == false)
+            _generalAudioSource.PlayOneShot(audio);
+    }
+
+    public void PlayOneShotAudioImmidiately(AudioClip audio)
+    {
+        if (_generalAudioSource != null)
             _generalAudioSource.PlayOneShot(audio);
     }
 
