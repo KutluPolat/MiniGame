@@ -25,24 +25,36 @@ public class EventManager : MonoBehaviour
     #region Delegates
 
     public delegate void Buttons();
+    public delegate void CreateMapTiles();
 
     #endregion // Delegates
 
     #region Events
 
-    public event Buttons OnPressedRestart;
+    public event Buttons PressedRestart;
+    public event CreateMapTiles MapTilesCreated;
 
     #endregion // Events
 
     #region Methods
 
-    public void TriggerOnPressedRestart()
+    public void OnPressedRestart()
     {
-        if (OnPressedRestart != null)
+        if (PressedRestart != null)
         {
-            OnPressedRestart();
+            PressedRestart();
 
             Debug.Log("OnPressedRestart triggered.");
+        }
+    }
+
+    public void OnMapTilesCreated()
+    {
+        if(MapTilesCreated != null)
+        {
+            MapTilesCreated();
+
+            Debug.Log("OnMapTilesCreated triggered.");
         }
     }
 

@@ -37,15 +37,12 @@ public class GameManager : MonoBehaviour
     [TabGroup("Level Elements", "Buildings"), InlineEditor(InlineEditorModes.LargePreview), SceneObjectsOnly]
     public GameObject Building1, Building2;
 
-    [TabGroup("Level Elements", "Animators"), SceneObjectsOnly]
-    public Animator CameraAnimator;
-
     #endregion // Level Elements
 
     #region Script Holders
 
     [BoxGroup("Script Holders"), SceneObjectsOnly, SerializeField]
-    private GameObject _managerHolder, _controllerHolder;
+    private GameObject _managerHolder, _controllerHolder, _handlerHolder;
 
     #endregion // Script Holders
 
@@ -64,18 +61,18 @@ public class GameManager : MonoBehaviour
 
     #endregion // Manager Prefabs
 
-    #region Controller Prefabs
-
-    [BoxGroup("Controllers"), AssetsOnly, SerializeField]
-    private GameObject _gridControllerPrefab;
-
-    #endregion // Controller Prefabs
-
-    #region Controller Properties
+    #region Classes
 
     public GridController GridController { get; private set; }
 
-    #endregion // Controller Properties
+    #endregion // Classes
+
+    #region Handler Prefabs
+
+    [BoxGroup("Handlers"), AssetsOnly, SerializeField]
+    private List<GameObject> _handlers;
+
+    #endregion // Handler Prefabs
 
     #endregion // Variables
 
@@ -87,7 +84,10 @@ public class GameManager : MonoBehaviour
     {
         InitializeManagers();
         SaveSystem.SubscribeEvents();
-        InitializeControllers();
+        InitializeClasses();
+        InitializeHandlers();
+
+        EventManager.Instance.OnMapTilesCreated();
     }
 
     private void InitializeManagers()
@@ -98,9 +98,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void InitializeControllers()
+    private void InitializeClasses()
     {
-        GridController = Instantiate(_gridControllerPrefab, _controllerHolder.transform).GetComponent<GridController>();
+        this.GridController = new GridController();
+    }
+
+    private void InitializeHandlers()
+    {
+        foreach(GameObject handler in _handlers)
+        {
+            Instantiate(handler, _handlerHolder.transform);
+        }
     }
 
     #endregion // Initializations.
