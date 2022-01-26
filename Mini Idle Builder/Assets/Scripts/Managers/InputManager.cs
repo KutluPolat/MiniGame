@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
 {
@@ -31,7 +32,28 @@ public class InputManager : MonoBehaviour
 
     #endregion // Variables
 
+    #region Updates & Start
+
+    private void Update()
+    {
+        HandleInputs();
+    }
+
+    #endregion // Updates & Start
+
     #region Methods
+
+    #region Inputs
+
+    private void HandleInputs()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            EventManager.Instance.OnLeftMouseButtonReleased();
+        }
+    }
+
+    #endregion // Inputs
 
     #region Events
 

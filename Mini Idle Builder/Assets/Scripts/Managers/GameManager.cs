@@ -74,6 +74,13 @@ public class GameManager : MonoBehaviour
 
     #endregion // Handler Prefabs
 
+    #region Controllers
+
+    public BuildingController BuildingController;
+    public DragController DragController;
+
+    #endregion // Controllers
+
     #endregion // Variables
 
     #region Methods
@@ -86,6 +93,7 @@ public class GameManager : MonoBehaviour
         SaveSystem.SubscribeEvents();
         InitializeClasses();
         InitializeHandlers();
+        InitializeControllers();
 
         EventManager.Instance.OnMapTilesCreated();
     }
@@ -109,6 +117,11 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(handler, _handlerHolder.transform);
         }
+    }
+
+    private void InitializeControllers()
+    {
+        BuildingController.SubscribeEvents();
     }
 
     #endregion // Initializations.
