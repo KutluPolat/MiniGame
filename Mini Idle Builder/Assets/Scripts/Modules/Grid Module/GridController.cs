@@ -44,8 +44,9 @@ public class GridController
     {
         RectTransform rectTransformOfMap = MapObject.GetComponent<RectTransform>();
 
-        float possibleWidth = rectTransformOfMap.sizeDelta.x / Grid.GetLength(0);
-        float possibleHeight = rectTransformOfMap.sizeDelta.y / Grid.GetLength(1);
+
+        int possibleWidth = Mathf.FloorToInt(rectTransformOfMap.sizeDelta.x) / Grid.GetLength(0) / 10 * 10;
+        int possibleHeight = Mathf.FloorToInt(rectTransformOfMap.sizeDelta.y) / Grid.GetLength(1) / 10 * 10;
 
         CellSize = possibleHeight < possibleWidth ? possibleHeight : possibleWidth;
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GridBuilder : MonoBehaviour
+public class GridBuilderHandler : MonoBehaviour
 {
     [SerializeField]
     private Sprite _tileSprite;
