@@ -34,7 +34,7 @@ public class InputController : MonoBehaviour
 
     #region Events
 
-    private void SubscribeEvents()
+    public void SubscribeEvents()
     {
 
     }

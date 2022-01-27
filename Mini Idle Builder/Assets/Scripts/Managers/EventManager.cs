@@ -27,6 +27,7 @@ public class EventManager : MonoBehaviour
     public delegate void Buttons();
     public delegate void CreateMapTiles();
     public delegate void MouseAction();
+    public delegate void ResourceChange();
 
     #endregion // Delegates
 
@@ -35,6 +36,7 @@ public class EventManager : MonoBehaviour
     public event Buttons PressedRestart;
     public event CreateMapTiles MapTilesCreated;
     public event MouseAction LeftMouseButtonReleased;
+    public event ResourceChange ResourceChanged;
 
     #endregion // Events
 
@@ -67,6 +69,16 @@ public class EventManager : MonoBehaviour
             LeftMouseButtonReleased();
 
             Debug.Log("LeftMouseButtonReleased triggered.");
+        }
+    }
+
+    public void OnResourceChanged()
+    {
+        if (ResourceChanged != null)
+        {
+            ResourceChanged();
+
+            Debug.Log("OnResourceChanged triggered.");
         }
     }
 

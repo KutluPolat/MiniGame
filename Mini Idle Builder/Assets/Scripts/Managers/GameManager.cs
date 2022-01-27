@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,13 +33,6 @@ public class GameManager : MonoBehaviour
 
     #region Variables
 
-    #region Level Elements
-
-    [TabGroup("Level Elements", "Buildings"), InlineEditor(InlineEditorModes.LargePreview), SceneObjectsOnly]
-    public GameObject Building1, Building2;
-
-    #endregion // Level Elements
-
     #region Script Holders
 
     [BoxGroup("Script Holders"), SceneObjectsOnly, SerializeField]
@@ -68,20 +62,27 @@ public class GameManager : MonoBehaviour
 
     #endregion // Classes
 
-    #region Handler Prefabs
-
-    [BoxGroup("Handlers"), AssetsOnly, SerializeField]
-    private List<GameObject> _handlers;
-
-    #endregion // Handler Prefabs
-
     #region Controllers
-
+    [BoxGroup("Controllers")]
     public ConstructionController BuildingController;
-    public DragController DragController;
-    public InputController InputController;
+
+    [BoxGroup("Controllers"), SerializeField]
+    private DragController _dragController;
+
+    [BoxGroup("Controllers"), SerializeField]
+    private InputController _inputController;
+
+    [BoxGroup("Controllers"), SerializeField]
+    private GridBuildingController _gridBuilderController;
 
     #endregion // Controllers
+
+    #region Others
+
+    [BoxGroup("Others"), SerializeField]
+    private PanelTextsTracker _panelTextsTracker;
+
+    #endregion // Others
 
     #endregion // Variables
 
@@ -96,6 +97,7 @@ public class GameManager : MonoBehaviour
         InitializeClasses();
         InitializeHandlers();
         InitializeControllers();
+        InitializeOthers();
 
         EventManager.Instance.OnMapTilesCreated();
     }
@@ -112,20 +114,27 @@ public class GameManager : MonoBehaviour
     {
         this.GridController = new GridController();
         this.Resource = new Resources();
-        this.InputController = new InputController();
     }
 
     private void InitializeHandlers()
     {
-        foreach(GameObject handler in _handlers)
+        foreach(Button button in GameObject.FindObjectsOfType<Button>())
         {
-            Instantiate(handler, _handlerHolder.transform);
+            button.GetComponent<ButtonHandler>().SubscribeEvents();
         }
     }
 
     private void InitializeControllers()
     {
         BuildingController.SubscribeEvents();
+        // _dragController don't have subscribtions.
+        _inputController.SubscribeEvents();
+        _gridBuilderController.SubscribeEvents();
+    }
+
+    private void InitializeOthers()
+    {
+        _panelTextsTracker.SubscribeEvents();
     }
 
     #endregion // Initializations.

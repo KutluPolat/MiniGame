@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GridBuilderHandler : MonoBehaviour
+public class GridBuildingController : MonoBehaviour
 {
     [SerializeField]
     private Sprite _tileSprite;
@@ -11,11 +11,6 @@ public class GridBuilderHandler : MonoBehaviour
     private GameObject _emptyTilePrefab;
 
     private GridController gridController;
-
-    private void Awake()
-    {
-        SubscribeEvents();
-    }
 
     private void CreateMap()
     {
@@ -50,7 +45,7 @@ public class GridBuilderHandler : MonoBehaviour
         return tile;
     }
 
-    private void SubscribeEvents()
+    public void SubscribeEvents()
     {
         EventManager.Instance.MapTilesCreated += CreateMap;
     }
