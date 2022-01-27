@@ -20,7 +20,7 @@ public class Feedbacks : MonoBehaviour
     [Range(0.2f, 0.4f)]
     private const float FEEDBACK_INTERVAL = 0.4f;
 
-    private bool IsGeneralFeedbackAvaible { get { return _feedbackCoroutine == null; } }
+    private bool IsGeneralFeedbackAvailable { get { return _feedbackCoroutine == null; } }
 
     #endregion // Variables
 
@@ -30,7 +30,7 @@ public class Feedbacks : MonoBehaviour
 
     public void TriggerGeneralFeedback()
     {
-        if (IsGeneralFeedbackAvaible)
+        if (IsGeneralFeedbackAvailable)
         {
             _feedbackCoroutine =
                 StartCoroutine(SendFeedback(_generalFeedback, true, GetGeneralFeedback()));

@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
     #region Others
 
     [BoxGroup("Others"), SerializeField]
-    private PanelTextsTracker _panelTextsTracker;
+    private ResourceTextsTracker _resourceTextsTracker;
 
     #endregion // Others
 
@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeOthers()
     {
-        _panelTextsTracker.SubscribeEvents();
+        _resourceTextsTracker.SubscribeEvents();
     }
 
     #endregion // Initializations.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PanelTextsTracker : MonoBehaviour
+public class ResourceTextsTracker : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI _gold, _gem;

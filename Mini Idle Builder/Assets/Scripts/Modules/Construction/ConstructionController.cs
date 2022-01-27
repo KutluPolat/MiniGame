@@ -13,7 +13,7 @@ public class ConstructionController : MonoBehaviour
 
     private List<ConstructionTile> _tilesUnderConstruction;
 
-    private bool IsAllChildTilesAvaibleToConstruction
+    private bool IsAllChildTilesAvailableToConstruction
     {
         get
         {
@@ -21,9 +21,12 @@ public class ConstructionController : MonoBehaviour
             {
                 Vector2Int coordinates = _tilesUnderConstruction[i].IndexOfTileBelow;
 
-                bool isCoordinatesHasNegativeValue = coordinates.x < 0 || coordinates.y < 0;
+                int xLengthOfGrid = GameManager.Instance.GridController.Grid.GetLength(0);
+                int yLengthOfGrid = GameManager.Instance.GridController.Grid.GetLength(1);
 
-                if (isCoordinatesHasNegativeValue)
+                bool isCoordinatesOutsideOfGrid = coordinates.x < 0 || coordinates.y < 0 || coordinates.x >= xLengthOfGrid || coordinates.y >= yLengthOfGrid;
+
+                if (isCoordinatesOutsideOfGrid)
                     return false;
 
                 if (GameManager.Instance.GridController.Grid[coordinates.x, coordinates.y].IsGridEmpty)
@@ -100,7 +103,7 @@ public class ConstructionController : MonoBehaviour
 
     private void ConcludeConstruction()
     {
-        if (IsAllChildTilesAvaibleToConstruction)
+        if (IsUnderConstruction && IsAllChildTilesAvailableToConstruction)
         {
             Debug.Log("Construction Sucessfull");
             ConstructionSuccessful();
