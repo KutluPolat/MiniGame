@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
     #region Classes
 
     public GridController GridController { get; private set; }
+    public Resources Resource { get; private set; }
 
     #endregion // Classes
 
@@ -78,6 +79,7 @@ public class GameManager : MonoBehaviour
 
     public ConstructionController BuildingController;
     public DragController DragController;
+    public InputController InputController;
 
     #endregion // Controllers
 
@@ -109,6 +111,8 @@ public class GameManager : MonoBehaviour
     private void InitializeClasses()
     {
         this.GridController = new GridController();
+        this.Resource = new Resources();
+        this.InputController = new InputController();
     }
 
     private void InitializeHandlers()

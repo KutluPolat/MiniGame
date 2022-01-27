@@ -14,6 +14,7 @@ public class ConstructionTile
 
     public Color Red { get { return new Color(1, 0, 0, 0.5f); } }
     public Color Green { get { return new Color(0, 1, 0, 0.5f); } }
+    public Color DefaultColor { get { return new Color(1, 1, 1, 1f); } }
 
     public ConstructionTile(Image image)
     {

@@ -40,12 +40,10 @@ public class ConstructionTileHandler : MonoBehaviour
         if (gridObject.IsGridEmpty)
         {
             ConstructionTile.SetImageColorTo(ConstructionTile.Green);
-            Debug.Log("Setted to true");
         }
         else
         {
             ConstructionTile.SetImageColorTo(ConstructionTile.Red);
-            Debug.Log("Setted to false");
         }
     }
 }

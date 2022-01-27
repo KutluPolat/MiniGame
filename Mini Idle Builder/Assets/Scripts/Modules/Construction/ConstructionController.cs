@@ -17,8 +17,6 @@ public class ConstructionController : MonoBehaviour
     {
         get
         {
-            Debug.Log("Tiles under construction count: " + _tilesUnderConstruction.Count);
-
             for (int i = 0; i < _tilesUnderConstruction.Count; i++)
             {
                 Vector2Int coordinates = _tilesUnderConstruction[i].IndexOfTileBelow;
@@ -117,6 +115,7 @@ public class ConstructionController : MonoBehaviour
     private void ConstructionSuccessful()
     {
         GameManager.Instance.GridController.SetGridStatesToOccupied(_tilesUnderConstruction);
+        ResetChildTiles();
         ReleaseCurrentConstruction();
     }
 
@@ -134,6 +133,19 @@ public class ConstructionController : MonoBehaviour
 
     // Releases the building under construction to it's place
     private void ReleaseCurrentConstruction() => CurrentConstruction = null;
+
+    private void ResetChildTiles()
+    {
+        for(int i= 0; i< CurrentConstruction.transform.childCount; i++)
+        {
+            ConstructionTileHandler scriptAttachedToConstructedTile = CurrentConstruction.transform.GetChild(i).GetComponent<ConstructionTileHandler>();
+            ConstructionTile constructedTile = scriptAttachedToConstructedTile.ConstructionTile;
+            Color defaultColorOfTile = constructedTile.DefaultColor;
+
+            constructedTile.SetImageColorTo(defaultColorOfTile);
+            Destroy(scriptAttachedToConstructedTile);
+        }
+    }
 
     #endregion // Construction Visual Controls
 

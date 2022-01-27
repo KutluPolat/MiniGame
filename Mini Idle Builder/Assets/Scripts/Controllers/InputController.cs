@@ -3,31 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InputManager : MonoBehaviour
+public class InputController : MonoBehaviour
 {
-    #region Singleton
-
-    public static InputManager Instance { get; private set; }
-
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void Start()
-    {
-        SubscribeEvents();
-    }
-
-    #endregion // Singleton
-
     #region Variables
 
     #endregion // Variables
