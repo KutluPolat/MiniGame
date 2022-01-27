@@ -31,12 +31,15 @@ public class GridController
 
     #region Methods
 
-    public bool IsGridEmpty(int x, int y)
+    public void SetGridStatesToOccupied(List<ConstructionTile> constructedTiles)
     {
-        return Grid[x, y].GridState == GridState.Empty;
+        foreach(ConstructionTile tile in constructedTiles)
+        {
+            Grid[tile.X, tile.Y].SetGridStateTo(GridState.Occupied);
+        }
     }
 
-    public bool IsGridEmpty(GameObject tileUnderConstruction)
+    public Grid IsGridUnderSpecifiedTileEmpty(GameObject tileUnderConstruction)
     {
         Vector3 localPositionAccordingToParent = GetLocalPositionAccordingToParent(tileUnderConstruction);
 
@@ -47,11 +50,11 @@ public class GridController
 
         if (isAnyIndexOutsideOfBoundsOfArray)
         {
-            return false;
+            return new Grid(x, y, null);
         }
         else
         {
-            return IsGridEmpty(x, y);
+            return this.Grid[x,y];
         }
     }
 

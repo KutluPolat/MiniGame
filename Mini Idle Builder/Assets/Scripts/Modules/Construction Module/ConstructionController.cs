@@ -11,6 +11,36 @@ public class ConstructionController : MonoBehaviour
     public GameObject CurrentConstruction { get; private set; } 
     public bool IsUnderConstruction { get { return CurrentConstructionState == ConstructionState.UnderConstruction; } }
 
+    private List<ConstructionTile> _tilesUnderConstruction;
+
+    private bool IsAllChildTilesAvaibleToConstruction
+    {
+        get
+        {
+            Debug.Log("Tiles under construction count: " + _tilesUnderConstruction.Count);
+
+            for (int i = 0; i < _tilesUnderConstruction.Count; i++)
+            {
+                Vector2Int coordinates = _tilesUnderConstruction[i].IndexOfTileBelow;
+
+                bool isCoordinatesHasNegativeValue = coordinates.x < 0 || coordinates.y < 0;
+
+                if (isCoordinatesHasNegativeValue)
+                    return false;
+
+                if (GameManager.Instance.GridController.Grid[coordinates.x, coordinates.y].IsGridEmpty)
+                {
+                    // Do nothing
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
 
     [SerializeField]
     private GameObject _house, _hobbySpace, _rentACar, _trainStation, _marina, _historicalSite, _governorsBuilding;
@@ -18,6 +48,10 @@ public class ConstructionController : MonoBehaviour
     private Transform _mapTransform { get { return GameManager.Instance.GridController.MapObject.transform; } }
 
     #endregion // Variables
+
+    #region Methods
+
+    #region OnPointerDown
 
     public void OnPointerDownForHouse(int building)
     {
@@ -59,28 +93,82 @@ public class ConstructionController : MonoBehaviour
                     Debug.LogError("You have to choose a building type on button.");
                     break;
             }
+
+            InitializeConstructionTiles();
         }
     }
 
-    private void ClearConstructionOnBuilding()
+    #endregion // OnPointerDown
+
+    private void ConcludeConstruction()
     {
-        Destroy(CurrentConstruction);
+        if (IsAllChildTilesAvaibleToConstruction)
+        {
+            Debug.Log("Construction Sucessfull");
+            ConstructionSuccessful();
+        }
+        else
+        {
+            Debug.Log("Construction failed");
+            ConstructionFailed();
+        }
     }
 
+    private void ConstructionSuccessful()
+    {
+        GameManager.Instance.GridController.SetGridStatesToOccupied(_tilesUnderConstruction);
+        ReleaseCurrentConstruction();
+    }
+
+    private void ConstructionFailed()
+    {
+        DestroyCurrentConstruction();
+
+    }
+
+    #region Construction Visual Controls
+
+    // Destroys the building under consturction
+    private void DestroyCurrentConstruction() => Destroy(CurrentConstruction);
+
+
+    // Releases the building under construction to it's place
+    private void ReleaseCurrentConstruction() => CurrentConstruction = null;
+
+    #endregion // Construction Visual Controls
+
+    #region ConstructionState Controls
+
     private void SetConstructionStateTo(ConstructionState state) => CurrentConstructionState = state;
+
+    #endregion // ConstructionState Controls
+
+    #region Tile Controls
+
+    private void InitializeConstructionTiles()
+    {
+        _tilesUnderConstruction = new List<ConstructionTile>();
+
+        foreach (ConstructionTileHandler childTile in CurrentConstruction.GetComponentsInChildren<ConstructionTileHandler>())
+        {
+            _tilesUnderConstruction.Add(childTile.ConstructionTile);
+        }
+    }
+
+    #endregion // Tile Controls
 
     #region Events
 
     public void SubscribeEvents()
     {
+        EventManager.Instance.LeftMouseButtonReleased += ConcludeConstruction;
         EventManager.Instance.LeftMouseButtonReleased += () => SetConstructionStateTo(ConstructionState.Null);
-        EventManager.Instance.LeftMouseButtonReleased += ClearConstructionOnBuilding;
     }
 
     private void UnsubscribeEvents()
     {
+        EventManager.Instance.LeftMouseButtonReleased -= ConcludeConstruction;
         EventManager.Instance.LeftMouseButtonReleased -= () => SetConstructionStateTo(ConstructionState.Null);
-        EventManager.Instance.LeftMouseButtonReleased -= ClearConstructionOnBuilding;
     }
 
     #endregion // Events
@@ -93,4 +181,6 @@ public class ConstructionController : MonoBehaviour
     }
 
     #endregion // OnDestroy
+
+    #endregion // Methods
 }
