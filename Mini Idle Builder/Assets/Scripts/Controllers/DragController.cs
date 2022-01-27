@@ -5,19 +5,17 @@ using ArvisGames.MiniIdleBuilder.Enums;
 
 public class DragController : MonoBehaviour
 {
-    private BuildingController _buildingController;
+    private ConstructionController _buildingController;
 
     private void Start()
     {
         _buildingController = GameManager.Instance.BuildingController;
     }
-
-    private bool IsUnderConstruction { get { return _buildingController.CurrentConstructionState == ConstructionState.UnderConstruction; } }
     private GameObject CurrentConstruction { get { return _buildingController.CurrentConstruction; } }
 
     private void Update()
     {
-        if (IsUnderConstruction)
+        if (_buildingController.IsUnderConstruction)
         {
             MoveCurrentConstructionToMousePosition();
         }

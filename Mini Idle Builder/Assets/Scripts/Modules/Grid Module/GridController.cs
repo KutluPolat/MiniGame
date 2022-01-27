@@ -43,7 +43,7 @@ public class GridController
         int x = Mathf.FloorToInt(localPositionAccordingToParent.x / CellSize);
         int y = Mathf.FloorToInt(localPositionAccordingToParent.y / CellSize);
 
-        bool isAnyIndexOutsideOfBoundsOfArray = x < 0 || y < 0 || x > Grid.GetLength(0) || y > Grid.GetLength(1);
+        bool isAnyIndexOutsideOfBoundsOfArray = x < 0 || y < 0 || x >= Grid.GetLength(0) || y >= Grid.GetLength(1);
 
         if (isAnyIndexOutsideOfBoundsOfArray)
         {

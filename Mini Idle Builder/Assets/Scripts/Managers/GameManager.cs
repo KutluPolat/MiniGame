@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     #region Controllers
 
-    public BuildingController BuildingController;
+    public ConstructionController BuildingController;
     public DragController DragController;
 
     #endregion // Controllers
