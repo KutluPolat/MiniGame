@@ -19,11 +19,11 @@ public class DragController : MonoBehaviour
     {
         if (IsUnderConstruction)
         {
-            MoveConstructionToMousePosition();
+            MoveCurrentConstructionToMousePosition();
         }
     }
 
-    private void MoveConstructionToMousePosition()
+    private void MoveCurrentConstructionToMousePosition()
     {
         CurrentConstruction.transform.position = Input.mousePosition;
     }

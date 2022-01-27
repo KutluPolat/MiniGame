@@ -36,6 +36,30 @@ public class GridController
         return Grid[x, y].GridState == GridState.Empty;
     }
 
+    public bool IsGridEmpty(GameObject tileUnderConstruction)
+    {
+        Vector3 localPositionAccordingToParent = GetLocalPositionAccordingToParent(tileUnderConstruction);
+
+        int x = Mathf.FloorToInt(localPositionAccordingToParent.x / CellSize);
+        int y = Mathf.FloorToInt(localPositionAccordingToParent.y / CellSize);
+
+        bool isAnyIndexOutsideOfBoundsOfArray = x < 0 || y < 0 || x > Grid.GetLength(0) || y > Grid.GetLength(1);
+
+        if (isAnyIndexOutsideOfBoundsOfArray)
+        {
+            return false;
+        }
+        else
+        {
+            return IsGridEmpty(x, y);
+        }
+    }
+
+    private Vector3 GetLocalPositionAccordingToParent(GameObject childOfDraggingObject)
+    {
+        return childOfDraggingObject.transform.parent.localPosition + childOfDraggingObject.transform.localPosition;
+    }
+
     #region Setting Fields
 
     private void SetGridSize(int width, int height) => Grid = new Grid[width, height];
