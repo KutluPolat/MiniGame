@@ -730,7 +730,7 @@ MonoBehaviour:
   - {fileID: 2232314076898902331, guid: e29ba6c2d29ceb54889d626c9cc51360, type: 3}
   - {fileID: 4552332999501344886, guid: 2a815c89c2f5d42468bcc8965fc83b9c, type: 3}
   - {fileID: 6138579601102292696, guid: 0819a10ed373c9f4c8133ed002fcb0fb, type: 3}
-  BuildingController: {fileID: 1480714411}
+  ConstructionController: {fileID: 1480714411}
   _dragController: {fileID: 207897145}
   _inputController: {fileID: 307057655}
   _gridBuilderController: {fileID: 1154622141}

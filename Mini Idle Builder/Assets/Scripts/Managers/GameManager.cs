@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
 
     #region Controllers
     [BoxGroup("Controllers")]
-    public ConstructionController BuildingController;
+    public ConstructionController ConstructionController;
 
     [BoxGroup("Controllers"), SerializeField]
     private DragController _dragController;
@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeControllers()
     {
-        BuildingController.SubscribeEvents();
+        ConstructionController.SubscribeEvents();
         // _dragController don't have subscribtions.
         _inputController.SubscribeEvents();
         _gridBuilderController.SubscribeEvents();

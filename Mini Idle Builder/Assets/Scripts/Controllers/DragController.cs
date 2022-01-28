@@ -9,7 +9,7 @@ public class DragController : MonoBehaviour
 
     private void Start()
     {
-        _buildingController = GameManager.Instance.BuildingController;
+        _buildingController = GameManager.Instance.ConstructionController;
     }
     private GameObject CurrentConstruction { get { return _buildingController.CurrentConstruction; } }
 

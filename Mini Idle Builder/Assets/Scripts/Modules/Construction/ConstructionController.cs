@@ -6,12 +6,11 @@ using ArvisGames.MiniIdleBuilder.Enums;
 public class ConstructionController : MonoBehaviour
 {
     #region Variables
-
-    public ConstructionState CurrentConstructionState { get; private set; }
     public GameObject CurrentConstruction { get; private set; } 
-    public bool IsUnderConstruction { get { return CurrentConstructionState == ConstructionState.UnderConstruction; } }
+    public bool IsUnderConstruction { get { return _currentConstructionState == ConstructionState.UnderConstruction; } }
 
     private List<ConstructionTile> _tilesUnderConstruction;
+    private ConstructionState _currentConstructionState;
 
     private bool IsAllChildTilesAvailableToConstruction
     {
@@ -154,7 +153,7 @@ public class ConstructionController : MonoBehaviour
 
     #region ConstructionState Controls
 
-    private void SetConstructionStateTo(ConstructionState state) => CurrentConstructionState = state;
+    private void SetConstructionStateTo(ConstructionState state) => _currentConstructionState = state;
 
     #endregion // ConstructionState Controls
 

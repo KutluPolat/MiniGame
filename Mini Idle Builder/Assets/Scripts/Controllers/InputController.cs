@@ -24,7 +24,7 @@ public class InputController : MonoBehaviour
 
     private void HandleInputs()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && GameManager.Instance.ConstructionController.IsUnderConstruction)
         {
             EventManager.Instance.OnLeftMouseButtonReleased();
         }
