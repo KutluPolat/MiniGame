@@ -95,10 +95,14 @@ public class GameManager : MonoBehaviour
 
     #region Methods
 
+    #region OnApplicationQuit
+
     private void OnApplicationQuit()
     {
         EventManager.Instance.OnSaved();
     }
+
+    #endregion // OnApplicationQuit
 
     #region Initializations
 

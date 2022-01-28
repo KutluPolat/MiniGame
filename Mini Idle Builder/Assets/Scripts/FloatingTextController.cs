@@ -6,6 +6,8 @@ using DG.Tweening;
 
 public class FloatingTextController : MonoBehaviour
 {
+    #region Variables
+
     [SerializeField]
     private GameObject _floatingTextForBuildingsPrefab, _floatingTextForPanelPrefab, _canvas;
 
@@ -18,9 +20,11 @@ public class FloatingTextController : MonoBehaviour
     [SerializeField]
     private Vector3 _feedbackOffsetForBuildings = new Vector3(100, 75), _feedbackOffsetForPanel = new Vector3(250, -50);
 
-
-
     private GameObject TMProUGUI => GameManager.Instance.ResourceTextsTracker.GoldUGUI.gameObject;
+
+    #endregion // Variables
+
+    #region Methods
 
     public void OnConstructionFeedback(Building building)
     {
@@ -84,4 +88,6 @@ public class FloatingTextController : MonoBehaviour
             .DOMoveY(spawnPosition.y + _feedbackFloatingDistance, _feedbackDuration)
             .OnComplete(() => Destroy(feedback));
     }
+
+    #endregion // Methods
 }

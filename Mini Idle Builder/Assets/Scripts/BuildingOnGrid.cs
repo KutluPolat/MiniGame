@@ -6,6 +6,8 @@ using TMPro;
 
 public class BuildingOnGrid : MonoBehaviour
 {
+    #region Variables
+
     public Building Building;
 
     [HideInInspector]
@@ -25,10 +27,13 @@ public class BuildingOnGrid : MonoBehaviour
         }
     }
 
+    #endregion // Variables
+
+    #region Start & Updates
+
     private void Start()
     {
         InitializeProgressBar();
-        SubscribeEvents();
     }
 
 
@@ -38,13 +43,17 @@ public class BuildingOnGrid : MonoBehaviour
         HandleProgressBar();
     }
 
-    #region Resource Controls
+    #endregion // Start & Updates
+
+    #region Methods
+
+    #region Handlers
 
     private void HandleTimer()
     {
         Timer += Time.deltaTime;
 
-        if(IsProductionCompleted)
+        if (IsProductionCompleted)
         {
             ProduceResource();
             Timer = 0;
@@ -64,18 +73,9 @@ public class BuildingOnGrid : MonoBehaviour
         GameManager.Instance.FloatingTextController.OnProductionFeedback(gameObject);
     }
 
-    #endregion // Resource Controls
+    #endregion // Handlers
 
-    #region Timer Control
-
-    private void TransferTimerValueToBuildingType()
-    {
-        Building.SavedTimerValue = Timer;
-    }
-
-    #endregion // Timer Control
-
-    #region Initialization
+    #region Initializations
 
     private void InitializeBuilding(Building building) => Building = building;
 
@@ -94,28 +94,7 @@ public class BuildingOnGrid : MonoBehaviour
             image.enabled = true;
     }
 
-    #endregion // Initialization
+    #endregion // Initializations
 
-    #region Events
-
-    private void SubscribeEvents()
-    {
-        EventManager.Instance.Saved += TransferTimerValueToBuildingType;
-    }
-
-    private void UnsubscribeEvents()
-    {
-        EventManager.Instance.Saved -= TransferTimerValueToBuildingType;
-    }
-
-    #endregion // Events
-
-    #region OnDestroy
-
-    private void OnDestroy()
-    {
-        UnsubscribeEvents();
-    }
-
-    #endregion // OnDestroy
+    #endregion // Methods
 }

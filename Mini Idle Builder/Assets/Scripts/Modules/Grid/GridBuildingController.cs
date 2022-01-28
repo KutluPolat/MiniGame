@@ -5,10 +5,16 @@ using UnityEngine.UI;
 
 public class GridBuildingController : MonoBehaviour
 {
+    #region Variables
+
     [SerializeField]
     private GameObject _emptyTilePrefab;
 
     private GridController gridController;
+
+    #endregion // Variables
+
+    #region Methods
 
     private void CreateMap()
     {
@@ -42,6 +48,8 @@ public class GridBuildingController : MonoBehaviour
         return tile;
     }
 
+    #region Events
+
     public void SubscribeEvents()
     {
         EventManager.Instance.MapTilesCreated += CreateMap;
@@ -52,8 +60,16 @@ public class GridBuildingController : MonoBehaviour
         EventManager.Instance.MapTilesCreated -= CreateMap;
     }
 
+    #endregion // Events
+
+    #region OnDestroy
+
     private void OnDestroy()
     {
         UnsubscribeEvents();
     }
+
+    #endregion // OnDestroy
+
+    #endregion // Methods
 }

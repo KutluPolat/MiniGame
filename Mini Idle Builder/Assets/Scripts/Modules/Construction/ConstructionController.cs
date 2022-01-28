@@ -109,6 +109,8 @@ public class ConstructionController : MonoBehaviour
 
     #endregion // OnPointerDown
 
+    #region Construction Controls
+
     private void ConcludeConstruction()
     {
         if (IsUnderConstruction && IsAllChildTilesAvailableToConstruction)
@@ -134,10 +136,9 @@ public class ConstructionController : MonoBehaviour
 
     private void StartProductionOnConstructedBuilding()
     {
+        CurrentConstructionGameObject.tag = "ConstructedBuilding";
         CurrentConstructionGameObject.GetComponent<BuildingOnGrid>().enabled = true;
     }
-
-    #region Construction Visual Controls
 
     // Destroys the building under consturction
     private void DestroyCurrentConstruction() => Destroy(CurrentConstructionGameObject);
@@ -151,7 +152,7 @@ public class ConstructionController : MonoBehaviour
 
     private void ResetChildTiles()
     {
-        foreach(ConstructionTileHandler constructionTileHandler in CurrentConstructionGameObject.transform.GetComponentsInChildren<ConstructionTileHandler>())
+        foreach (ConstructionTileHandler constructionTileHandler in CurrentConstructionGameObject.transform.GetComponentsInChildren<ConstructionTileHandler>())
         {
             ConstructionTile constructedTile = constructionTileHandler.ConstructionTile;
             Color defaultColorOfTile = constructedTile.DefaultColor;
@@ -162,13 +163,9 @@ public class ConstructionController : MonoBehaviour
         }
     }
 
-    #endregion // Construction Visual Controls
-
-    #region ConstructionState Controls
-
     private void SetConstructionStateTo(ConstructionState state) => _currentConstructionState = state;
 
-    #endregion // ConstructionState Controls
+    #endregion // Construction Controls
 
     #region Tile Controls
 

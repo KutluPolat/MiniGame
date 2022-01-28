@@ -5,8 +5,14 @@ using UnityEngine.UI;
 
 public class ConstructionTileHandler : MonoBehaviour
 {
+    #region Variables
+
     private GridController _gridController;
     public ConstructionTile ConstructionTile { get; private set; }
+
+    #endregion // Variables
+
+    #region Awake & Start & Update 
 
     private void Awake()
     {
@@ -25,6 +31,10 @@ public class ConstructionTileHandler : MonoBehaviour
             HandleTile();
         }
     }
+
+    #endregion // Awake & Start & Update 
+
+    #region Methods
 
     public ConstructionTile GetTileProperties()
     {
@@ -47,4 +57,6 @@ public class ConstructionTileHandler : MonoBehaviour
             ConstructionTile.SetImageColorTo(ConstructionTile.Red);
         }
     }
+
+    #endregion // Methods
 }

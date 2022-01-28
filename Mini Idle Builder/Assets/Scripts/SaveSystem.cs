@@ -30,6 +30,8 @@ public abstract class SaveSystem : MonoBehaviour
 
     #region Methods
 
+    #region Save Data Controls
+
     public static void LoadData()
     {
         if(File.Exists(_savePath))
@@ -55,7 +57,7 @@ public abstract class SaveSystem : MonoBehaviour
                 
                 constructed.GetComponent<BuildingOnGrid>().Building = building;
                 constructed.GetComponent<BuildingOnGrid>().enabled = true;
-                constructed.GetComponent<BuildingOnGrid>().Timer = building.SavedTimerValue;
+                constructed.GetComponent<BuildingOnGrid>().Timer = SavedDatas.ConstructedBuilding_CurrentTimerValues[i];
 
                 constructed.GetComponent<SnapToGridHandler>().SnapToGrid();
 
@@ -69,6 +71,14 @@ public abstract class SaveSystem : MonoBehaviour
 
     private static void SaveData()
     {
+        SaveGridData();
+        SaveConstructionData();
+
+        string stringData = JsonUtility.ToJson(SavedDatas);
+        File.WriteAllText(_savePath, stringData);
+    }
+    private static void SaveGridData()
+    {
         Grid[,] grid = GameManager.Instance.GridController.Grid;
 
         for (int x = 0; x < grid.GetLength(0); x++)
@@ -81,9 +91,18 @@ public abstract class SaveSystem : MonoBehaviour
                 }
             }
         }
+    }
 
-        string stringData = JsonUtility.ToJson(SavedDatas);
-        File.WriteAllText(_savePath, stringData);
+    private static void SaveConstructionData()
+    {
+        foreach(GameObject constructedBuilding in GameObject.FindGameObjectsWithTag("ConstructedBuilding"))
+        {
+            BuildingOnGrid constructedBuildingDatas = constructedBuilding.GetComponent<BuildingOnGrid>();
+
+            SavedDatas.ConstructedBuilding_BuildingDatas.Add(constructedBuildingDatas.Building);
+            SavedDatas.ConstructedBuilding_Positions.Add(constructedBuilding.transform.position);
+            SavedDatas.ConstructedBuilding_CurrentTimerValues.Add(constructedBuildingDatas.Timer);
+        }
     }
 
     private static void ResetSaveData()
@@ -100,11 +119,9 @@ public abstract class SaveSystem : MonoBehaviour
         PlayerPrefs.SetInt("Gem", _defaultGemValue);
     }
 
-    private static void UpdateData(Building building)
-    {
-        SavedDatas.ConstructedBuilding_Positions.Add(GameManager.Instance.ConstructionController.CurrentConstructionGameObject.transform.position);
-        SavedDatas.ConstructedBuilding_BuildingDatas.Add(building);
-    }
+    #endregion // Save Data Controls
+
+    #region Scene Controls
 
     private static void RestartScene()
     {
@@ -113,20 +130,18 @@ public abstract class SaveSystem : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    #endregion // Scene Controls
+
     #region Events
 
     public static void SubscribeEvents()
     {
-        EventManager.Instance.ConstructionOnGoing += UpdateData;
-
         EventManager.Instance.PressedRestart += RestartScene;
         EventManager.Instance.Saved += SaveData;
     }
 
     private static void UnsubscribeEvents()
     {
-        EventManager.Instance.ConstructionOnGoing -= UpdateData;
-
         EventManager.Instance.PressedRestart -= RestartScene;
         EventManager.Instance.Saved -= SaveData;
     }

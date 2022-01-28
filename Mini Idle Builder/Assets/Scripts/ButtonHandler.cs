@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 
 public class ButtonHandler : MonoBehaviour
 {
+    #region Variables
+
     public Building Building;
 
     [SerializeField]
@@ -19,6 +21,10 @@ public class ButtonHandler : MonoBehaviour
     [BoxGroup("Texts"), SerializeField]
     private TextMeshProUGUI _goldCost, _goldProduction, _gemCost, _gemProduction, _productionTime, _name;
 
+    #endregion // Variables
+
+    #region Start
+
     private void Start()
     {
         _button = GetComponent<Button>();
@@ -26,6 +32,10 @@ public class ButtonHandler : MonoBehaviour
         InitializeCard();
         DisableOrEnableButtonAccordingToResources();
     }
+
+    #endregion // Start
+
+    #region Methods
 
     private void DisableOrEnableButtonAccordingToResources()
     {
@@ -56,6 +66,8 @@ public class ButtonHandler : MonoBehaviour
         _buildingIcon.sprite = Building.BuildingIcon;
     }
 
+    #region Events
+
     public void SubscribeEvents()
     {
         EventManager.Instance.ResourceChanged += DisableOrEnableButtonAccordingToResources;
@@ -66,8 +78,16 @@ public class ButtonHandler : MonoBehaviour
         EventManager.Instance.ResourceChanged -= DisableOrEnableButtonAccordingToResources;
     }
 
+    #endregion // Events
+
+    #region OnDestroy
+
     private void OnDestroy()
     {
         UnsubscribeEvents();
     }
+
+    #endregion // OnDestroy
+
+    #endregion // Methods
 }

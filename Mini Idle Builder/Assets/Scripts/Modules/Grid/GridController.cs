@@ -31,8 +31,6 @@ public class GridController
 
     #region Methods
 
-    #region Is Grid Empty
-
     public Grid IsGridUnderSpecifiedTileEmpty(GameObject tileUnderConstruction)
     {
         Vector3 localPositionAccordingToParent = GetLocalPositionAccordingToParent(tileUnderConstruction);
@@ -57,10 +55,6 @@ public class GridController
         return childOfDraggingObject.transform.parent.localPosition + childOfDraggingObject.transform.localPosition;
     }
 
-    #endregion // Is Grid Empty
-
-    #region Construction
-
     public void HandleGridsUnderConstruction()
     {
         SetGridStatesToOccupied(GameManager.Instance.ConstructionController.TilesUnderConstruction);
@@ -73,8 +67,6 @@ public class GridController
             Grid[tile.X, tile.Y].SetGridStateTo(GridState.Occupied);
         }
     }
-
-    #endregion // Construction
 
     #region Setting Fields
 

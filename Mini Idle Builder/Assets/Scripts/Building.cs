@@ -24,7 +24,4 @@ public class Building : ScriptableObject
 
     [BoxGroup("Production")]
     public int GemProduction, GoldProduction;
-
-    [HideInInspector]
-    public float SavedTimerValue;
 }
