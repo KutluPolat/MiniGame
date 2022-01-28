@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class Resources
 {
-    public int Gold { get; private set; } = 10;
-    public int Gem { get; private set; } = 10;
+    public int Gold 
+    {
+        get { return SaveSystem.Gold; }
+        set { SaveSystem.Gold = value; }
+    }
+    public int Gem
+    {
+        get { return SaveSystem.Gem; }
+        set { SaveSystem.Gem = value; }
+    }
 
     public Resources()
     {

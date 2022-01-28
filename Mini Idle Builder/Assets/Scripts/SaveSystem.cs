@@ -6,27 +6,23 @@ public abstract class SaveSystem : MonoBehaviour
 {
     #region Variables
 
-    public static int Level 
-    { 
-        get { return PlayerPrefs.GetInt("Level", 1); } 
-        set { PlayerPrefs.SetInt("Level", value); }
+    public static int Gold
+    {
+        get { return PlayerPrefs.GetInt("Gold", _defaultGoldValue); }
+        set { PlayerPrefs.SetInt("Gold", value); }
     }
 
-    public static int IndexOfLevelInSceneBuild
+    public static int Gem
     {
-        get { return Level - 1; }
+        get { return PlayerPrefs.GetInt("Gem", _defaultGemValue); }
+        set { PlayerPrefs.SetInt("Gem", value); }
     }
 
-    public static float Gold
-    {
-        get { return PlayerPrefs.GetFloat("Gold"); }
-        set { PlayerPrefs.SetFloat("Gold", value); }
-    }
+    private static int _defaultGoldValue = 10, _defaultGemValue = 10;
 
     #endregion // Variables
 
     #region Methods
-
 
     #region Events
 
