@@ -28,6 +28,9 @@ public class EventManager : MonoBehaviour
     public delegate void CreateMapTiles();
     public delegate void MouseAction();
     public delegate void ResourceChange();
+    public delegate void ConstructionStart();
+    public delegate void ConstructionOnGo(Building constructedBuilding);
+    public delegate void ConstructionComplete();
 
     #endregion // Delegates
 
@@ -37,6 +40,9 @@ public class EventManager : MonoBehaviour
     public event CreateMapTiles MapTilesCreated;
     public event MouseAction LeftMouseButtonReleased;
     public event ResourceChange ResourceChanged;
+    public event ConstructionStart ConstructionStarted;
+    public event ConstructionOnGo ConstructionOnGoing; 
+    public event ConstructionComplete ConstructionCompleted;
 
     #endregion // Events
 
@@ -79,6 +85,36 @@ public class EventManager : MonoBehaviour
             ResourceChanged();
 
             Debug.Log("OnResourceChanged triggered.");
+        }
+    }
+
+    public void OnConstructionStarted()
+    {
+        if(ConstructionStarted != null)
+        {
+            ConstructionStarted();
+
+            Debug.Log("OnConstructionStarted triggered.");
+        }
+    }
+
+    public void OnConstructionOnGoing(Building constructedObject)
+    {
+        if(ConstructionOnGoing != null)
+        {
+            ConstructionOnGoing(constructedObject);
+
+            Debug.Log("OnConstructionOnGoing triggered.");
+        }
+    }
+
+    public void OnConstructionCompleted()
+    {
+        if(ConstructionCompleted != null)
+        {
+            ConstructionCompleted();
+
+            Debug.Log("OnConstructionCompleted triggered.");
         }
     }
 

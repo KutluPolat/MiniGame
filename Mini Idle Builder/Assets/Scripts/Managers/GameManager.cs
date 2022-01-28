@@ -143,12 +143,13 @@ public class GameManager : MonoBehaviour
 
     private void SubscribeEvents()
     {
-
+        EventManager.Instance.ConstructionStarted += GridController.HandleGridsUnderConstruction;
+        EventManager.Instance.ConstructionOnGoing += (Building constructedBuilding) => Resource.SpendResource(constructedBuilding.GoldCost, constructedBuilding.GemCost);
     }
 
     private void UnsubscribeEvents()
     {
-
+        EventManager.Instance.ConstructionStarted -= GridController.HandleGridsUnderConstruction;
     }
 
     #endregion // Events

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Governor's Building
   m_EditorClassIdentifier: 
   BuildingName: Government
-  Sprite: {fileID: 21300000, guid: 565344500e0ab174e8b40b7c7d710f85, type: 3}
+  BuildingIcon: {fileID: 21300000, guid: 565344500e0ab174e8b40b7c7d710f85, type: 3}
+  BuildingShape: {fileID: 4937341743624757503, guid: a630b9aec616bee4c919229bcbf11604, type: 3}
   ProductionTime: 20
   GemCost: 10
   GoldCost: 10

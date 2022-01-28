@@ -6,19 +6,20 @@ using ArvisGames.MiniIdleBuilder.Enums;
 public class ConstructionController : MonoBehaviour
 {
     #region Variables
-    public GameObject CurrentConstruction { get; private set; } 
+    public GameObject CurrentConstructionShape { get; private set; }
+    public ButtonHandler CurrentConstruction { get; private set; }
     public bool IsUnderConstruction { get { return _currentConstructionState == ConstructionState.UnderConstruction; } }
+    public List<ConstructionTile> TilesUnderConstruction { get; private set; }
 
-    private List<ConstructionTile> _tilesUnderConstruction;
     private ConstructionState _currentConstructionState;
 
     private bool IsAllChildTilesAvailableToConstruction
     {
         get
         {
-            for (int i = 0; i < _tilesUnderConstruction.Count; i++)
+            for (int i = 0; i < TilesUnderConstruction.Count; i++)
             {
-                Vector2Int coordinates = _tilesUnderConstruction[i].IndexOfTileBelow;
+                Vector2Int coordinates = TilesUnderConstruction[i].IndexOfTileBelow;
 
                 int xLengthOfGrid = GameManager.Instance.GridController.Grid.GetLength(0);
                 int yLengthOfGrid = GameManager.Instance.GridController.Grid.GetLength(1);
@@ -43,7 +44,7 @@ public class ConstructionController : MonoBehaviour
     }
 
     [SerializeField]
-    private GameObject _house, _hobbySpace, _rentACar, _trainStation, _marina, _historicalSite, _governorsBuilding;
+    private ButtonHandler _houseCard, _hobbySpaceCard, _rentACarCard, _trainStationCard, _marinaCard, _historicalSiteCard, _governorsBuildingCard;
 
     private Transform _mapTransform { get { return GameManager.Instance.GridController.MapObject.transform; } }
 
@@ -62,31 +63,38 @@ public class ConstructionController : MonoBehaviour
             switch ((BuildingType)building)
             {
                 case BuildingType.House:
-                    CurrentConstruction = Instantiate(_house, Input.mousePosition, Quaternion.identity, _mapTransform);
+                    CurrentConstructionShape = Instantiate(_houseCard.Building.BuildingShape, Input.mousePosition, Quaternion.identity, _mapTransform);
+                    CurrentConstruction = _houseCard;
                     break;
 
                 case BuildingType.HobbySpace:
-                    CurrentConstruction = Instantiate(_hobbySpace, Input.mousePosition, Quaternion.identity, _mapTransform);
+                    CurrentConstructionShape = Instantiate(_hobbySpaceCard.Building.BuildingShape, Input.mousePosition, Quaternion.identity, _mapTransform);
+                    CurrentConstruction = _hobbySpaceCard;
                     break;
 
                 case BuildingType.RentACar:
-                    CurrentConstruction = Instantiate(_rentACar, Input.mousePosition, Quaternion.identity, _mapTransform);
+                    CurrentConstructionShape = Instantiate(_rentACarCard.Building.BuildingShape, Input.mousePosition, Quaternion.identity, _mapTransform);
+                    CurrentConstruction = _rentACarCard;
                     break;
 
                 case BuildingType.TrainStation:
-                    CurrentConstruction = Instantiate(_trainStation, Input.mousePosition, Quaternion.identity, _mapTransform);
+                    CurrentConstructionShape = Instantiate(_trainStationCard.Building.BuildingShape, Input.mousePosition, Quaternion.identity, _mapTransform);
+                    CurrentConstruction = _trainStationCard;
                     break;
 
                 case BuildingType.Marina:
-                    CurrentConstruction = Instantiate(_marina, Input.mousePosition, Quaternion.identity, _mapTransform);
+                    CurrentConstructionShape = Instantiate(_marinaCard.Building.BuildingShape, Input.mousePosition, Quaternion.identity, _mapTransform);
+                    CurrentConstruction = _marinaCard;
                     break;
 
                 case BuildingType.HistoricalSite:
-                    CurrentConstruction = Instantiate(_historicalSite, Input.mousePosition, Quaternion.identity, _mapTransform);
+                    CurrentConstructionShape = Instantiate(_historicalSiteCard.Building.BuildingShape, Input.mousePosition, Quaternion.identity, _mapTransform);
+                    CurrentConstruction = _historicalSiteCard;
                     break;
 
                 case BuildingType.GovernorsBuilding:
-                    CurrentConstruction = Instantiate(_governorsBuilding, Input.mousePosition, Quaternion.identity, _mapTransform);
+                    CurrentConstructionShape = Instantiate(_governorsBuildingCard.Building.BuildingShape, Input.mousePosition, Quaternion.identity, _mapTransform);
+                    CurrentConstruction = _governorsBuildingCard;
                     break;
 
                 default:
@@ -105,20 +113,16 @@ public class ConstructionController : MonoBehaviour
         if (IsUnderConstruction && IsAllChildTilesAvailableToConstruction)
         {
             Debug.Log("Construction Sucessfull");
-            ConstructionSuccessful();
+
+            EventManager.Instance.OnConstructionStarted();
+            EventManager.Instance.OnConstructionOnGoing(CurrentConstruction.Building);
+            EventManager.Instance.OnConstructionCompleted();
         }
         else
         {
             Debug.Log("Construction failed");
             ConstructionFailed();
         }
-    }
-
-    private void ConstructionSuccessful()
-    {
-        GameManager.Instance.GridController.SetGridStatesToOccupied(_tilesUnderConstruction);
-        ResetChildTiles();
-        ReleaseCurrentConstruction();
     }
 
     private void ConstructionFailed()
@@ -130,17 +134,17 @@ public class ConstructionController : MonoBehaviour
     #region Construction Visual Controls
 
     // Destroys the building under consturction
-    private void DestroyCurrentConstruction() => Destroy(CurrentConstruction);
+    private void DestroyCurrentConstruction() => Destroy(CurrentConstructionShape);
 
 
     // Releases the building under construction to it's place
-    private void ReleaseCurrentConstruction() => CurrentConstruction = null;
+    private void ReleaseCurrentConstruction() => CurrentConstructionShape = null;
 
     private void ResetChildTiles()
     {
-        for(int i= 0; i< CurrentConstruction.transform.childCount; i++)
+        for(int i= 0; i< CurrentConstructionShape.transform.childCount; i++)
         {
-            ConstructionTileHandler scriptAttachedToConstructedTile = CurrentConstruction.transform.GetChild(i).GetComponent<ConstructionTileHandler>();
+            ConstructionTileHandler scriptAttachedToConstructedTile = CurrentConstructionShape.transform.GetChild(i).GetComponent<ConstructionTileHandler>();
             ConstructionTile constructedTile = scriptAttachedToConstructedTile.ConstructionTile;
             Color defaultColorOfTile = constructedTile.DefaultColor;
 
@@ -161,11 +165,11 @@ public class ConstructionController : MonoBehaviour
 
     private void InitializeConstructionTiles()
     {
-        _tilesUnderConstruction = new List<ConstructionTile>();
+        TilesUnderConstruction = new List<ConstructionTile>();
 
-        foreach (ConstructionTileHandler childTile in CurrentConstruction.GetComponentsInChildren<ConstructionTileHandler>())
+        foreach (ConstructionTileHandler childTile in CurrentConstructionShape.GetComponentsInChildren<ConstructionTileHandler>())
         {
-            _tilesUnderConstruction.Add(childTile.ConstructionTile);
+            TilesUnderConstruction.Add(childTile.ConstructionTile);
         }
     }
 
@@ -177,12 +181,20 @@ public class ConstructionController : MonoBehaviour
     {
         EventManager.Instance.LeftMouseButtonReleased += ConcludeConstruction;
         EventManager.Instance.LeftMouseButtonReleased += () => SetConstructionStateTo(ConstructionState.Null);
+
+        EventManager.Instance.ConstructionStarted += ResetChildTiles;
+
+        EventManager.Instance.ConstructionCompleted += ReleaseCurrentConstruction;
     }
 
     private void UnsubscribeEvents()
     {
         EventManager.Instance.LeftMouseButtonReleased -= ConcludeConstruction;
         EventManager.Instance.LeftMouseButtonReleased -= () => SetConstructionStateTo(ConstructionState.Null);
+
+        EventManager.Instance.ConstructionStarted -= ResetChildTiles;
+
+        EventManager.Instance.ConstructionCompleted -= ReleaseCurrentConstruction;
     }
 
     #endregion // Events

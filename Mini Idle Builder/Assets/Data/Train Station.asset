@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Train Station
   m_EditorClassIdentifier: 
   BuildingName: Train Station
-  Sprite: {fileID: 21300000, guid: a6a9d020107ea2746ae276f61b05d317, type: 3}
+  BuildingIcon: {fileID: 21300000, guid: bb8b0c75fb86e7e45860aeb4c31cb4eb, type: 3}
+  BuildingShape: {fileID: 7249769798290129205, guid: 34c68404b63102c4789b2549a028ec11, type: 3}
   ProductionTime: 10
   GemCost: 5
   GoldCost: 5

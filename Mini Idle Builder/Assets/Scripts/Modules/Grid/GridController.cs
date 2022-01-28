@@ -31,13 +31,7 @@ public class GridController
 
     #region Methods
 
-    public void SetGridStatesToOccupied(List<ConstructionTile> constructedTiles)
-    {
-        foreach(ConstructionTile tile in constructedTiles)
-        {
-            Grid[tile.X, tile.Y].SetGridStateTo(GridState.Occupied);
-        }
-    }
+    #region Is Grid Empty
 
     public Grid IsGridUnderSpecifiedTileEmpty(GameObject tileUnderConstruction)
     {
@@ -62,6 +56,25 @@ public class GridController
     {
         return childOfDraggingObject.transform.parent.localPosition + childOfDraggingObject.transform.localPosition;
     }
+
+    #endregion // Is Grid Empty
+
+    #region Construction
+
+    public void HandleGridsUnderConstruction()
+    {
+        SetGridStatesToOccupied(GameManager.Instance.ConstructionController.TilesUnderConstruction);
+    }
+
+    private void SetGridStatesToOccupied(List<ConstructionTile> constructedTiles)
+    {
+        foreach (ConstructionTile tile in constructedTiles)
+        {
+            Grid[tile.X, tile.Y].SetGridStateTo(GridState.Occupied);
+        }
+    }
+
+    #endregion // Construction
 
     #region Setting Fields
 

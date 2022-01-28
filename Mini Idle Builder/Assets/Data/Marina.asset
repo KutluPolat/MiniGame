@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Marina
   m_EditorClassIdentifier: 
   BuildingName: Marina
-  Sprite: {fileID: 21300000, guid: 70067e78402dbc84a8fe8b77056de184, type: 3}
+  BuildingIcon: {fileID: 21300000, guid: 70067e78402dbc84a8fe8b77056de184, type: 3}
+  BuildingShape: {fileID: 7249769798290129205, guid: 34c68404b63102c4789b2549a028ec11, type: 3}
   ProductionTime: 10
   GemCost: 8
   GoldCost: 2

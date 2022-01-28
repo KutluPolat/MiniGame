@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Hobby Space
   m_EditorClassIdentifier: 
   BuildingName: Hobby Space
-  Sprite: {fileID: 21300000, guid: c3b9eaac9c264894782e721e165a6f57, type: 3}
+  BuildingIcon: {fileID: 21300000, guid: c3b9eaac9c264894782e721e165a6f57, type: 3}
+  BuildingShape: {fileID: 6662071857731418644, guid: 32847919e3780794e8293cd896be4d16, type: 3}
   ProductionTime: 2
   GemCost: 2
   GoldCost: 0

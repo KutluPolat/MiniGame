@@ -11,7 +11,10 @@ public class Building : ScriptableObject
     public string BuildingName;
 
     [BoxGroup("Base Properties")]
-    public Sprite Sprite;
+    public Sprite BuildingIcon;
+
+    [BoxGroup("Base Properties")]
+    public GameObject BuildingShape;
 
     [BoxGroup("Base Properties")]
     public float ProductionTime;

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: House
   m_EditorClassIdentifier: 
   BuildingName: House
-  Sprite: {fileID: 21300000, guid: 410b4535c382d414f8b65938b54c8f63, type: 3}
+  BuildingIcon: {fileID: 21300000, guid: 410b4535c382d414f8b65938b54c8f63, type: 3}
+  BuildingShape: {fileID: 6662071857731418644, guid: 32847919e3780794e8293cd896be4d16, type: 3}
   ProductionTime: 4
   GemCost: 0
   GoldCost: 2

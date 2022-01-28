@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Historical Site
   m_EditorClassIdentifier: 
   BuildingName: Arvis's Castle
-  Sprite: {fileID: 21300000, guid: 33e097066ce75954ba8808e8ef7c304d, type: 3}
+  BuildingIcon: {fileID: 21300000, guid: 33e097066ce75954ba8808e8ef7c304d, type: 3}
+  BuildingShape: {fileID: 4937341743624757503, guid: a630b9aec616bee4c919229bcbf11604, type: 3}
   ProductionTime: 5
   GemCost: 15
   GoldCost: 5

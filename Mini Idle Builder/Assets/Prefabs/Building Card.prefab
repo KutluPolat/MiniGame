@@ -1386,7 +1386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad8382cd92925849a0ebf9b39604153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _building: {fileID: 0}
+  Building: {fileID: 0}
+  _buildingIcon: {fileID: 60856099703845833}
   _goldCost: {fileID: 60856098163883337}
   _goldProduction: {fileID: 60856098441046999}
   _gemCost: {fileID: 60856099044024782}

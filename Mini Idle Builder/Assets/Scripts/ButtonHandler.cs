@@ -8,8 +8,10 @@ using UnityEngine.EventSystems;
 
 public class ButtonHandler : MonoBehaviour
 {
+    public Building Building;
+
     [SerializeField]
-    private Building _building;
+    private Image _buildingIcon;
 
     private Button _button;
     private EventTrigger _eventTrigger;
@@ -21,13 +23,13 @@ public class ButtonHandler : MonoBehaviour
     {
         _button = GetComponent<Button>();
         _eventTrigger = GetComponent<EventTrigger>();
-        SetTexts();
+        InitializeCard();
         DisableOrEnableButtonAccordingToResources();
     }
 
     private void DisableOrEnableButtonAccordingToResources()
     {
-        if (GameManager.Instance.Resource.IsResourcesEnoughFor(_building.GoldCost, _building.GemCost))
+        if (GameManager.Instance.Resource.IsResourcesEnoughFor(Building.GoldCost, Building.GemCost))
         {
             _button.interactable = true;
             _eventTrigger.enabled = true;
@@ -39,17 +41,19 @@ public class ButtonHandler : MonoBehaviour
         }
     }
 
-    private void SetTexts()
+    private void InitializeCard()
     {
-        _goldCost.text = _building.GoldCost.ToString();
-        _gemCost.text = _building.GemCost.ToString();
+        _goldCost.text = Building.GoldCost.ToString();
+        _gemCost.text = Building.GemCost.ToString();
 
-        _goldProduction.text = _building.GoldProduction.ToString();
-        _gemProduction.text = _building.GemProduction.ToString();
+        _goldProduction.text = Building.GoldProduction.ToString();
+        _gemProduction.text = Building.GemProduction.ToString();
 
-        _productionTime.text = _building.ProductionTime.ToString() + "s";
+        _productionTime.text = Building.ProductionTime.ToString() + "s";
 
-        _name.text = _building.BuildingName;
+        _name.text = Building.BuildingName;
+
+        _buildingIcon.sprite = Building.BuildingIcon;
     }
 
     public void SubscribeEvents()

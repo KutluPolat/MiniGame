@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Rent a Car
   m_EditorClassIdentifier: 
   BuildingName: Rent a Car
-  Sprite: {fileID: 21300000, guid: bb8b0c75fb86e7e45860aeb4c31cb4eb, type: 3}
+  BuildingIcon: {fileID: 21300000, guid: bb8b0c75fb86e7e45860aeb4c31cb4eb, type: 3}
+  BuildingShape: {fileID: 8902170774800276010, guid: c3a96ba2c4579e0488f653ec5a2aaf56, type: 3}
   ProductionTime: 2
   GemCost: 2
   GoldCost: 8
