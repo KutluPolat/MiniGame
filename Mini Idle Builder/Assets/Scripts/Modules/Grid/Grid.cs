@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Grid
 {
     public int x, y;
-    public GridState GridState { get; private set; } = GridState.Empty;
+    public GridState GridState = GridState.Empty;
     public GameObject Tile;
 
     public Vector2Int Coordinates { get { return new Vector2Int(x, y); } }

@@ -12,6 +12,7 @@ public class ConstructionTileHandler : MonoBehaviour
     {
         ConstructionTile = new ConstructionTile(GetComponent<Image>());
     }
+
     private void Start()
     {
         _gridController = GameManager.Instance.GridController;

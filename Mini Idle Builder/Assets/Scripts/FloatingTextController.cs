@@ -24,7 +24,7 @@ public class FloatingTextController : MonoBehaviour
 
     public void OnConstructionFeedback(Building building)
     {
-        GameObject constructionShape = GameManager.Instance.ConstructionController.CurrentConstructionShape;
+        GameObject constructionShape = GameManager.Instance.ConstructionController.CurrentConstructionGameObject;
 
         Feedback(building.GoldCost * -1, building.GemCost * -1, 
             constructionShape.transform.position, _canvas.transform,

@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class GridBuildingController : MonoBehaviour
 {
     [SerializeField]
-    private Sprite _tileSprite;
-    [SerializeField]
     private GameObject _emptyTilePrefab;
 
     private GridController gridController;
@@ -16,7 +14,6 @@ public class GridBuildingController : MonoBehaviour
     {
         gridController = GameManager.Instance.GridController;
 
-        Debug.Log("Length 0:" + gridController.Grid.GetLength(0) + " ! Length 1: " + gridController.Grid.GetLength(1));
         for (int x= 0; x < gridController.Grid.GetLength(0); x++)
         {
             for(int y = 0; y < gridController.Grid.GetLength(1); y++)

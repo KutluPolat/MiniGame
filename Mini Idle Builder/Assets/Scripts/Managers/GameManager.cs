@@ -86,24 +86,33 @@ public class GameManager : MonoBehaviour
     [BoxGroup("Others")]
     public ResourceTextsTracker ResourceTextsTracker;
 
+    [BoxGroup("Others")]
+    public GameObject MapSection;
+
     #endregion // Others
 
     #endregion // Variables
 
     #region Methods
 
+    private void OnApplicationQuit()
+    {
+        SaveSystem.SaveData();
+    }
+
     #region Initializations
 
     private void InitializeLevelElements()
     {
         InitializeManagers();
-        SaveSystem.SubscribeEvents();
         InitializeClasses();
         InitializeHandlers();
         InitializeControllers();
         InitializeOthers();
 
         EventManager.Instance.OnMapTilesCreated();
+
+        InitializeSaveSystem();
     }
 
     private void InitializeManagers()
@@ -122,7 +131,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeHandlers()
     {
-        foreach(Button button in GameObject.FindObjectsOfType<Button>())
+        foreach(GameObject button in GameObject.FindGameObjectsWithTag("BuildingCard"))
         {
             button.GetComponent<ButtonHandler>().SubscribeEvents();
         }
@@ -134,6 +143,13 @@ public class GameManager : MonoBehaviour
         // _dragController don't have subscribtions.
         _inputController.SubscribeEvents();
         _gridBuilderController.SubscribeEvents();
+    }
+
+    private void InitializeSaveSystem()
+    {
+        SaveSystem.SubscribeEvents();
+        SaveSystem.SavedDatas = new SaveData();
+        SaveSystem.LoadData();
     }
 
     private void InitializeOthers()

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8902170773537582930}
   - component: {fileID: 8902170773537582924}
   - component: {fileID: 8902170773537582925}
-  - component: {fileID: 3911579279398353236}
+  - component: {fileID: 5085874087285727582}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3911579279398353236
+--- !u!114 &5085874087285727582
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 8902170773585966549}
   - component: {fileID: 8902170773585966551}
   - component: {fileID: 8902170773585966548}
-  - component: {fileID: 1250424162893066932}
+  - component: {fileID: 5714755912377393837}
   m_Layer: 5
   m_Name: Image (1)
   m_TagString: Untagged
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1250424162893066932
+--- !u!114 &5714755912377393837
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,6 +186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8902170774800276005}
   - component: {fileID: 8902170774800276004}
+  - component: {fileID: 8431624386776670061}
   m_Layer: 5
   m_Name: Building - 2
   m_TagString: Untagged
@@ -228,6 +229,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ddf7d776fe6e04e802a3b872e77630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8431624386776670061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8902170774800276010}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222d5341d7c778444a1b19ba14627640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Building: {fileID: 0}
+  Timer: 0
 --- !u!1 &8902170774889127752
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +254,7 @@ GameObject:
   - component: {fileID: 8902170774889127755}
   - component: {fileID: 8902170774889127749}
   - component: {fileID: 8902170774889127754}
-  - component: {fileID: 6642908801663058711}
+  - component: {fileID: 331622746169767357}
   m_Layer: 5
   m_Name: Image (2)
   m_TagString: Untagged
@@ -304,7 +319,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6642908801663058711
+--- !u!114 &331622746169767357
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

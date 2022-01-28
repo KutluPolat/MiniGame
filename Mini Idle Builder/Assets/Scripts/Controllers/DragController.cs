@@ -11,7 +11,7 @@ public class DragController : MonoBehaviour
     {
         _buildingController = GameManager.Instance.ConstructionController;
     }
-    private GameObject CurrentConstruction { get { return _buildingController.CurrentConstructionShape; } }
+    private GameObject CurrentConstruction { get { return _buildingController.CurrentConstructionGameObject; } }
 
     private void Update()
     {

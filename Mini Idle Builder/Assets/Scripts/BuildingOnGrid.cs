@@ -6,19 +6,23 @@ using TMPro;
 
 public class BuildingOnGrid : MonoBehaviour
 {
-    public Building Building { get; private set; }
+    public Building Building;
 
-    private float _timer;
+    [HideInInspector]
+    public float Timer;
+
     private TextMeshProUGUI _timerCounter;
     private Slider _progressBar;
 
-    private bool IsProductionCompleted { get { return _timer >= Building.ProductionTime; } }
-    private float Countdown { get { return Building.ProductionTime - _timer; } }
+    private bool IsProductionCompleted { get { return Timer >= Building.ProductionTime; } }
+    private float Countdown { get { return Building.ProductionTime - Timer; } }
 
-
-    private void Awake()
+    private void OnEnable()
     {
-        InitializeBuilding(GameManager.Instance.ConstructionController.CurrentConstruction.Building);
+        if(Building == null)
+        {
+            InitializeBuilding(GameManager.Instance.ConstructionController.CurrentConstruction.Building);
+        }
     }
 
     private void Start()
@@ -37,12 +41,12 @@ public class BuildingOnGrid : MonoBehaviour
 
     private void HandleTimer()
     {
-        _timer += Time.deltaTime;
+        Timer += Time.deltaTime;
 
         if(IsProductionCompleted)
         {
             ProduceResource();
-            _timer = 0;
+            Timer = 0;
         }
 
         _timerCounter.text = string.Format("{0:0.0}", Countdown);
@@ -50,7 +54,7 @@ public class BuildingOnGrid : MonoBehaviour
 
     private void HandleProgressBar()
     {
-        _progressBar.value = _timer;
+        _progressBar.value = Timer;
     }
 
     private void ProduceResource()

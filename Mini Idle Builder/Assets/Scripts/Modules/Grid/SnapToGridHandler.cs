@@ -12,7 +12,7 @@ public class SnapToGridHandler : MonoBehaviour
             SnapToGrid();
     }
 
-    private void SnapToGrid()
+    public void SnapToGrid()
     {
         Vector3 snappedPosition = new Vector3(
             Mathf.Round(transform.localPosition.x / CellSize) * CellSize,
