@@ -131,6 +131,11 @@ public class ConstructionController : MonoBehaviour
 
     }
 
+    private void StartProductionOnConstructedBuilding()
+    {
+        CurrentConstructionShape.AddComponent<BuildingOnGrid>();
+    }
+
     #region Construction Visual Controls
 
     // Destroys the building under consturction
@@ -142,15 +147,24 @@ public class ConstructionController : MonoBehaviour
 
     private void ResetChildTiles()
     {
-        for(int i= 0; i< CurrentConstructionShape.transform.childCount; i++)
+        foreach(ConstructionTileHandler constructionTileHandler in CurrentConstructionShape.transform.GetComponentsInChildren<ConstructionTileHandler>())
         {
-            ConstructionTileHandler scriptAttachedToConstructedTile = CurrentConstructionShape.transform.GetChild(i).GetComponent<ConstructionTileHandler>();
-            ConstructionTile constructedTile = scriptAttachedToConstructedTile.ConstructionTile;
+            ConstructionTile constructedTile = constructionTileHandler.ConstructionTile;
             Color defaultColorOfTile = constructedTile.DefaultColor;
 
             constructedTile.SetImageColorTo(defaultColorOfTile);
-            Destroy(scriptAttachedToConstructedTile);
+            Destroy(constructionTileHandler);
         }
+
+        //for(int i= 0; i< CurrentConstructionShape.transform.childCount; i++)
+        //{
+        //    ConstructionTileHandler scriptAttachedToConstructedTile = CurrentConstructionShape.transform.GetChild(i).GetComponent<ConstructionTileHandler>();
+        //    ConstructionTile constructedTile = scriptAttachedToConstructedTile.ConstructionTile;
+        //    Color defaultColorOfTile = constructedTile.DefaultColor;
+
+        //    constructedTile.SetImageColorTo(defaultColorOfTile);
+        //    Destroy(scriptAttachedToConstructedTile);
+        //}
     }
 
     #endregion // Construction Visual Controls
@@ -183,6 +197,7 @@ public class ConstructionController : MonoBehaviour
         EventManager.Instance.LeftMouseButtonReleased += () => SetConstructionStateTo(ConstructionState.Null);
 
         EventManager.Instance.ConstructionStarted += ResetChildTiles;
+        EventManager.Instance.ConstructionStarted += StartProductionOnConstructedBuilding;
 
         EventManager.Instance.ConstructionCompleted += ReleaseCurrentConstruction;
     }
@@ -193,6 +208,7 @@ public class ConstructionController : MonoBehaviour
         EventManager.Instance.LeftMouseButtonReleased -= () => SetConstructionStateTo(ConstructionState.Null);
 
         EventManager.Instance.ConstructionStarted -= ResetChildTiles;
+        EventManager.Instance.ConstructionStarted -= StartProductionOnConstructedBuilding;
 
         EventManager.Instance.ConstructionCompleted -= ReleaseCurrentConstruction;
     }
