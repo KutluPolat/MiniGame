@@ -6,13 +6,14 @@ using TMPro;
 
 public class BuildingOnGrid : MonoBehaviour
 {
-    private Building _building;
+    public Building Building { get; private set; }
+
     private float _timer;
     private TextMeshProUGUI _timerCounter;
     private Slider _progressBar;
 
-    private bool IsProductionCompleted { get { return _timer >= _building.ProductionTime; } }
-    private float Countdown { get { return _building.ProductionTime - _timer; } }
+    private bool IsProductionCompleted { get { return _timer >= Building.ProductionTime; } }
+    private float Countdown { get { return Building.ProductionTime - _timer; } }
 
 
     private void Awake()
@@ -54,19 +55,20 @@ public class BuildingOnGrid : MonoBehaviour
 
     private void ProduceResource()
     {
-        GameManager.Instance.Resource.GainResource(_building.GoldProduction, _building.GemProduction);
+        GameManager.Instance.Resource.GainResource(Building.GoldProduction, Building.GemProduction);
+        GameManager.Instance.FloatingTextController.OnProductionFeedback(gameObject);
     }
 
     #endregion // Resource Controls
 
     #region Initialization
 
-    private void InitializeBuilding(Building building) => _building = building;
+    private void InitializeBuilding(Building building) => Building = building;
 
     private void InitializeProgressBar()
     {
         _progressBar = GetComponentInChildren<Slider>();
-        _progressBar.maxValue = _building.ProductionTime;
+        _progressBar.maxValue = Building.ProductionTime;
         MakeProgressBarVisible();
 
         _timerCounter = GetComponentInChildren<TextMeshProUGUI>();

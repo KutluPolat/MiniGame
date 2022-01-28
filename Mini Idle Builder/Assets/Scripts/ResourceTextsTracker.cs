@@ -5,8 +5,7 @@ using TMPro;
 
 public class ResourceTextsTracker : MonoBehaviour
 {
-    [SerializeField]
-    private TextMeshProUGUI _gold, _gem;
+    public TextMeshProUGUI GoldUGUI, GemUGUI;
 
     private void Start()
     {
@@ -15,8 +14,8 @@ public class ResourceTextsTracker : MonoBehaviour
 
     private void UpdateTexts()
     {
-        _gold.text = GameManager.Instance.Resource.Gold.ToString();
-        _gem.text = GameManager.Instance.Resource.Gem.ToString();
+        GoldUGUI.text = GameManager.Instance.Resource.Gold.ToString();
+        GemUGUI.text = GameManager.Instance.Resource.Gem.ToString();
     }
 
     public void SubscribeEvents()

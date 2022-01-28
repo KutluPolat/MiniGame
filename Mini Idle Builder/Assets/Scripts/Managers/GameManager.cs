@@ -63,8 +63,12 @@ public class GameManager : MonoBehaviour
     #endregion // Classes
 
     #region Controllers
+
     [BoxGroup("Controllers")]
     public ConstructionController ConstructionController;
+
+    [BoxGroup("Controllers")]
+    public FloatingTextController FloatingTextController;
 
     [BoxGroup("Controllers"), SerializeField]
     private DragController _dragController;
@@ -79,8 +83,8 @@ public class GameManager : MonoBehaviour
 
     #region Others
 
-    [BoxGroup("Others"), SerializeField]
-    private ResourceTextsTracker _resourceTextsTracker;
+    [BoxGroup("Others")]
+    public ResourceTextsTracker ResourceTextsTracker;
 
     #endregion // Others
 
@@ -134,7 +138,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeOthers()
     {
-        _resourceTextsTracker.SubscribeEvents();
+        ResourceTextsTracker.SubscribeEvents();
     }
 
     #endregion // Initializations.
@@ -145,11 +149,14 @@ public class GameManager : MonoBehaviour
     {
         EventManager.Instance.ConstructionStarted += GridController.HandleGridsUnderConstruction;
         EventManager.Instance.ConstructionOnGoing += (Building constructedBuilding) => Resource.SpendResource(constructedBuilding.GoldCost, constructedBuilding.GemCost);
+        EventManager.Instance.ConstructionOnGoing += FloatingTextController.OnConstructionFeedback;
     }
 
     private void UnsubscribeEvents()
     {
         EventManager.Instance.ConstructionStarted -= GridController.HandleGridsUnderConstruction;
+        EventManager.Instance.ConstructionOnGoing -= (Building constructedBuilding) => Resource.SpendResource(constructedBuilding.GoldCost, constructedBuilding.GemCost);
+        EventManager.Instance.ConstructionOnGoing -= FloatingTextController.OnConstructionFeedback;
     }
 
     #endregion // Events
