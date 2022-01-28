@@ -47,7 +47,7 @@ public class Resources
 
     public bool IsResourcesEnoughFor(int goldCost, int gemCost)
     {
-        if (Gold > goldCost && Gem > gemCost)
+        if (Gold >= goldCost && Gem >= gemCost)
             return true;
 
         else

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Map
   - Menu
+  - BuildingCard
+  - ConstructedBuilding
   layers:
   - Default
   - TransparentFX
