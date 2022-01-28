@@ -54,6 +54,7 @@ public abstract class SaveSystem : MonoBehaviour
                 Vector3 position = SavedDatas.ConstructedBuilding_Positions[i];
 
                 GameObject constructed = Instantiate(building.BuildingShape, position, Quaternion.identity, GameManager.Instance.MapSection.transform);
+                constructed.tag = "ConstructedBuilding";
                 
                 constructed.GetComponent<BuildingOnGrid>().Building = building;
                 constructed.GetComponent<BuildingOnGrid>().enabled = true;
