@@ -31,6 +31,7 @@ public class EventManager : MonoBehaviour
     public delegate void ConstructionStart();
     public delegate void ConstructionOnGo(Building constructedBuilding);
     public delegate void ConstructionComplete();
+    public delegate void Save();
 
     #endregion // Delegates
 
@@ -43,6 +44,7 @@ public class EventManager : MonoBehaviour
     public event ConstructionStart ConstructionStarted;
     public event ConstructionOnGo ConstructionOnGoing; 
     public event ConstructionComplete ConstructionCompleted;
+    public event Save Saved;
 
     #endregion // Events
 
@@ -117,6 +119,16 @@ public class EventManager : MonoBehaviour
             Debug.Log("OnConstructionCompleted triggered.");
         }
     }
+    
+    public void OnSaved()
+    {
+        if(Saved != null)
+        {
+            Saved();
 
+            Debug.Log("OnSaved triggered.");
+        }
+    }
+    
     #endregion // Methods
 }

@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        SaveSystem.SaveData();
+        EventManager.Instance.OnSaved();
     }
 
     #region Initializations

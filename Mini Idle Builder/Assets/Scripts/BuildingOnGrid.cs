@@ -28,6 +28,7 @@ public class BuildingOnGrid : MonoBehaviour
     private void Start()
     {
         InitializeProgressBar();
+        SubscribeEvents();
     }
 
 
@@ -65,6 +66,15 @@ public class BuildingOnGrid : MonoBehaviour
 
     #endregion // Resource Controls
 
+    #region Timer Control
+
+    private void TransferTimerValueToBuildingType()
+    {
+        Building.SavedTimerValue = Timer;
+    }
+
+    #endregion // Timer Control
+
     #region Initialization
 
     private void InitializeBuilding(Building building) => Building = building;
@@ -85,4 +95,27 @@ public class BuildingOnGrid : MonoBehaviour
     }
 
     #endregion // Initialization
+
+    #region Events
+
+    private void SubscribeEvents()
+    {
+        EventManager.Instance.Saved += TransferTimerValueToBuildingType;
+    }
+
+    private void UnsubscribeEvents()
+    {
+        EventManager.Instance.Saved -= TransferTimerValueToBuildingType;
+    }
+
+    #endregion // Events
+
+    #region OnDestroy
+
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
+    }
+
+    #endregion // OnDestroy
 }

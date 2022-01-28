@@ -30,25 +30,6 @@ public abstract class SaveSystem : MonoBehaviour
 
     #region Methods
 
-    public static void SaveData()
-    {
-        Grid[,] grid = GameManager.Instance.GridController.Grid;
-
-        for (int x = 0; x < grid.GetLength(0); x++)
-        {
-            for (int y = 0; y < grid.GetLength(1); y++)
-            {
-                if (grid[x, y].GridState == GridState.Occupied)
-                {
-                    SavedDatas.OccupiedGrids.Add(new Vector2Int(x, y));
-                }
-            }
-        }
-
-        string stringData = JsonUtility.ToJson(SavedDatas);
-        File.WriteAllText(_savePath, stringData);
-    }
-
     public static void LoadData()
     {
         if(File.Exists(_savePath))
@@ -74,6 +55,7 @@ public abstract class SaveSystem : MonoBehaviour
                 
                 constructed.GetComponent<BuildingOnGrid>().Building = building;
                 constructed.GetComponent<BuildingOnGrid>().enabled = true;
+                constructed.GetComponent<BuildingOnGrid>().Timer = building.SavedTimerValue;
 
                 constructed.GetComponent<SnapToGridHandler>().SnapToGrid();
 
@@ -83,6 +65,25 @@ public abstract class SaveSystem : MonoBehaviour
                 }
             }
         }
+    }
+
+    private static void SaveData()
+    {
+        Grid[,] grid = GameManager.Instance.GridController.Grid;
+
+        for (int x = 0; x < grid.GetLength(0); x++)
+        {
+            for (int y = 0; y < grid.GetLength(1); y++)
+            {
+                if (grid[x, y].GridState == GridState.Occupied)
+                {
+                    SavedDatas.OccupiedGrids.Add(new Vector2Int(x, y));
+                }
+            }
+        }
+
+        string stringData = JsonUtility.ToJson(SavedDatas);
+        File.WriteAllText(_savePath, stringData);
     }
 
     private static void ResetSaveData()
@@ -112,7 +113,6 @@ public abstract class SaveSystem : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-
     #region Events
 
     public static void SubscribeEvents()
@@ -120,6 +120,7 @@ public abstract class SaveSystem : MonoBehaviour
         EventManager.Instance.ConstructionOnGoing += UpdateData;
 
         EventManager.Instance.PressedRestart += RestartScene;
+        EventManager.Instance.Saved += SaveData;
     }
 
     private static void UnsubscribeEvents()
@@ -127,6 +128,7 @@ public abstract class SaveSystem : MonoBehaviour
         EventManager.Instance.ConstructionOnGoing -= UpdateData;
 
         EventManager.Instance.PressedRestart -= RestartScene;
+        EventManager.Instance.Saved -= SaveData;
     }
 
     #endregion // Events
